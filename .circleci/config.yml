@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  rn: react-native-community/react-native@1.2.0
+  rn: react-native-community/react-native@4.1.0
 
 jobs:
   checkout_code:
@@ -43,40 +43,34 @@ workflows:
       - analyse:
           requires:
             - checkout_code
-      # Disabled until we can get Detox to work correctly on Android
-      # - rn/android_build:
-      #     name: build_android_debug
-      #     project_path: "example/android"
-      #     build_type: debug
-      #     requires:
-      #       - analyse
-      # - rn/android_build:
-      #     name: build_android_release
-      #     project_path: "example/android"
-      #     build_type: release
-      #     requires:
-      #       - analyse
-      # - rn/android_test:
-      #     start_metro: true
-      #     detox_configuration: "android.emu.debug"
-      #     detox_loglevel: "trace"
-      #     requires:
-      #       - build_android_debug
-      # - rn/ios_build_and_test:
-      #     project_path: "example/ios/NetInfoExample.xcodeproj"
-      #     derived_data_path: "example/ios/build"
-      #     device: "iPhone X"
-      #     build_configuration: "Release"
-      #     scheme: "NetInfoExample"
-      #     detox_configuration: "ios.sim.release"
-      #     detox_loglevel: "trace"
-      #     requires:
-      #       - analyse
+      - rn/android_build:
+          project_path: "example/android"
+          build_type: release
+          requires:
+            - analyse
+      - rn/android_test:
+          detox_configuration: "android.emu.release"
+          detox_loglevel: "trace"
+          requires:
+            - rn/android_build
+      - rn/ios_build_and_test:
+          checkout: true
+          attach_workspace: false
+          pod_install_directory: "example/ios"
+          project_path: "example/ios/NetInfoExample.xcworkspace"
+          derived_data_path: "example/ios/build"
+          device: "iPhone X"
+          build_configuration: "Release"
+          scheme: "NetInfoExample"
+          detox_configuration: "ios.sim.release"
+          detox_loglevel: "trace"
+          requires:
+            - analyse
       - publish:
           requires:
             - analyse
-            # - rn/ios_build_and_test
-            # - rn/android_test
+            - rn/ios_build_and_test
+            - rn/android_test
           filters:
             branches:
               only: master

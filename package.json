@@ -69,7 +69,7 @@
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
     "babel-loader": "^8.0.6",
-    "detox": "^12.8.0",
+    "detox": "^16.2.0",
     "eslint": "5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "3.0.1",
@@ -103,13 +103,13 @@
     "configurations": {
       "ios.sim.debug": {
         "binaryPath": "example/ios/build/Build/Products/Debug-iphonesimulator/NetInfoExample.app",
-        "build": "export RCT_NO_LAUNCH_PACKAGER=true && xcodebuild -project example/ios/NetInfoExample.xcodeproj -destination 'platform=iOS Simulator,name=iPhone X' -scheme NetInfoExample -parallelizeTargets -configuration Debug -derivedDataPath example/ios/build  -UseModernBuildSystem=YES | xcpretty -k",
+        "build": "export RCT_NO_LAUNCH_PACKAGER=true && xcodebuild -workspace example/ios/NetInfoExample.xcworkspace -destination 'platform=iOS Simulator,name=iPhone X' -scheme NetInfoExample -parallelizeTargets -configuration Debug -derivedDataPath example/ios/build  -UseModernBuildSystem=YES | xcpretty -k",
         "type": "ios.simulator",
         "name": "iPhone X"
       },
       "ios.sim.release": {
         "binaryPath": "example/ios/build/Build/Products/Release-iphonesimulator/NetInfoExample.app",
-        "build": "export RCT_NO_LAUNCH_PACKAGER=true && xcodebuild -project example/ios/NetInfoExample.xcodeproj -destination 'platform=iOS Simulator,name=iPhone X' -scheme NetInfoExample -parallelizeTargets -configuration Release -derivedDataPath example/ios/build  -UseModernBuildSystem=YES | xcpretty -k",
+        "build": "export RCT_NO_LAUNCH_PACKAGER=true && xcodebuild -workspace example/ios/NetInfoExample.xcworkspace -destination 'platform=iOS Simulator,name=iPhone X' -scheme NetInfoExample -parallelizeTargets -configuration Release -derivedDataPath example/ios/build  -UseModernBuildSystem=YES | xcpretty -k",
         "type": "ios.simulator",
         "name": "iPhone X"
       },
